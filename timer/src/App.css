@@ -1,0 +1,176 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 20px 0;
+}
+
+
+.medication-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh; 
+  background-color: white;
+  padding: 20px;
+  box-sizing: border-box; 
+  overflow-y: auto; 
+  position: relative;
+    background: url("medication.jpg") no-repeat center center/cover;
+    
+    text-shadow: #eee;
+    font-style: bold;
+ 
+    width: 100%;
+}
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  opacity:10;
+}
+
+
+
+.medication-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px; 
+}
+
+.medication-form input {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.medication-form button {
+  padding: 12px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.medication-form button:hover {
+  background-color: #45a049;
+}
+
+.medication-list {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 500px; 
+}
+
+.medication-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.medication-list li {
+  padding: 10px;
+  font-size: 1.1rem;
+  color: #555;
+  border-bottom: 1px solid #eee;
+}
+
+.medication-list p {
+  font-size: 1.2rem;
+  color: #888;
+}
+
+
+.meditation-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  color: rgb(8, 177, 76);
+  overflow: hidden;
+  font-weight: bolder;
+  font-style: normal;
+}
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.duration-selection {
+  margin-bottom: 20px;
+}
+
+.duration-selection label {
+  font-size: 1.1rem;
+  margin-right: 10px;
+}
+
+.duration-selection select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #333;
+}
+
+.timer-section {
+  font-size: 2rem;
+}
+
+.timer-section button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
+
+.timer-section button:hover {
+  background-color: #45a049;
+}
+
+.session-end {
+  font-size: 1.3rem;
+  color: #ff9900;
+  margin-top: 20px;
+}
+
