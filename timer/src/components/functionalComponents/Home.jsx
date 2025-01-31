@@ -22,7 +22,7 @@ const HomePage = () => {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -1;
+           
           }
 
           .container {
@@ -92,7 +92,7 @@ const HomePage = () => {
         `}
       </style>
 
-      <img src="bgihome.jpg" alt="Background" className="background" />
+      <img src="/bgihome.jpg" alt="Background" className="background" />
 
    
       <div className="container">

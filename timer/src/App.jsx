@@ -1,8 +1,4 @@
 import "./App.css"; 
-
-
-
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/functionalComponents/Navbar";
 import Medication from './components/functionalComponents/Medication';
