@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../../App.css";
 
 function Meditation() {
@@ -7,36 +7,58 @@ function Meditation() {
   const [selectedDuration, setSelectedDuration] = useState(5 * 60);
   const [sessionActive, setSessionActive] = useState(false);
 
+ 
+  const backgroundAudio = useRef(new Audio("bgm.mp3"));
+  const alarmAudio = useRef(new Audio("alarm.wav"));
+
   useEffect(() => {
     let meditationInterval;
 
     if (isMeditationActive) {
+      
+      backgroundAudio.current.loop = true;
+      backgroundAudio.current.volume = 0.5; 
+      backgroundAudio.current.play().catch((error) => console.log("Audio play failed:", error));
+
       meditationInterval = setInterval(() => {
         setMeditationTime((prevTime) => prevTime + 1);
       }, 1000);
-
-      if (meditationTime >= selectedDuration) {
-        setIsMeditationActive(false);
-        setSessionActive(false);
-        clearInterval(meditationInterval);
-        playAlarm();
-      }
     } else {
       clearInterval(meditationInterval);
     }
 
-    return () => clearInterval(meditationInterval);
+   
+    if (meditationTime >= selectedDuration && isMeditationActive) {
+      setIsMeditationActive(false);
+      setSessionActive(false);
+      playAlarm();
+      backgroundAudio.current.pause(); 
+    }
+
+    return () => {
+      clearInterval(meditationInterval);
+      backgroundAudio.current.pause();
+    };
   }, [isMeditationActive, meditationTime, selectedDuration]);
 
   const handleStartMeditation = () => {
     setMeditationTime(0);
     setIsMeditationActive(true);
     setSessionActive(true);
+
+  
+    backgroundAudio.current.currentTime = 0;
+    backgroundAudio.current.play();
   };
 
   const handleStopMeditation = () => {
     setIsMeditationActive(false);
     setSessionActive(false);
+    backgroundAudio.current.pause(); 
+  };
+
+  const playAlarm = () => {
+    alarmAudio.current.play().catch((error) => console.log("Alarm play failed:", error));
   };
 
   const formatTime = (seconds) => {
@@ -45,20 +67,14 @@ function Meditation() {
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
-  const playAlarm = () => {
-    const audio = new Audio("alarm.wav");
-    audio.play().catch((error) => console.log("Audio play failed:", error));
-  };
-
   return (
     <div className="App meditation-page">
-   
       <img src="medibg.jpg" alt="Background" className="background-image" />
 
       <div
         className="content-container"
         style={{
-          backgroundColor: "rgba(255, 255, 255, 0.7)", 
+          backgroundColor: "rgba(255, 255, 255, 0.7)",
           borderRadius: "10px",
           maxWidth: "600px",
           margin: "auto",
@@ -66,12 +82,11 @@ function Meditation() {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
-       
         <h1
           className="title"
           style={{
             fontFamily: "Arial, sans-serif",
-            color: "#1E2A47", 
+            color: "#1E2A47",
             fontSize: "32px",
             fontWeight: "600",
             marginBottom: "20px",
@@ -80,13 +95,12 @@ function Meditation() {
           Guided Meditation Timer
         </h1>
 
-  
         <div className="duration-selection" style={{ marginBottom: "20px" }}>
           <label
             style={{
               fontSize: "18px",
               fontWeight: "500",
-              color: "#34495E", 
+              color: "#34495E",
             }}
           >
             Select Meditation Duration:
@@ -115,14 +129,13 @@ function Meditation() {
           </select>
         </div>
 
-   
         <div className="timer-section" style={{ marginBottom: "20px" }}>
           <p
             className="timer"
             style={{
               fontSize: "40px",
               fontWeight: "600",
-              color: "#1E2A47", 
+              color: "#1E2A47",
             }}
           >
             {formatTime(meditationTime)}
@@ -167,18 +180,17 @@ function Meditation() {
           )}
         </div>
 
-      
         {!sessionActive && meditationTime > 0 && meditationTime >= selectedDuration && (
           <p
             className="session-end"
             style={{
               fontSize: "18px",
-              color: "#2ECC71", 
+              color: "#2ECC71",
               fontWeight: "500",
               marginTop: "30px",
             }}
           >
-            Session Complete! Well done! 
+            Session Complete! Well done!
           </p>
         )}
       </div>
